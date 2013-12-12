@@ -66,14 +66,14 @@ module.exports = function(grunt) {
 
       } else {
 
-				// If the value is an array, add all array elements to the array.
-				if(!_.isArray(value)) {
-					value = [value];
-				}
+	// If the value is an array, add all array elements to the array.
+	if(!_.isArray(value)) {
+		value = [value];
+	}
 
-				_.each(value, function(value) {
-					args.push([sw, value.toString()]);
-				});
+	_.each(value, function(value) {
+		args.push([sw, value.toString()]);
+	});
 
       }
 
