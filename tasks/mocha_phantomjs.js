@@ -60,14 +60,23 @@ module.exports = function(grunt) {
       // Convert to the key to a switch
       var sw = (key.length > 1 ? '--' : '-') + key;
       // Add the switch and its value
-      // If the value is an array, add all array elements to the array.
-      if(!_.isArray(value)) {
-        value = [value];
+      if (_.isObject(value)) { // objects are a bit more complex--families of k/v pairs
+
+      	args.push([sw, JSON.stringify(value)]); // just stringify; our other software will parse.
+
+      } else {
+
+				// If the value is an array, add all array elements to the array.
+				if(!_.isArray(value)) {
+					value = [value];
+				}
+
+				_.each(value, function(value) {
+					args.push([sw, value.toString()]);
+				});
+
       }
 
-      _.each(value, function(value) {
-        args.push([sw, value.toString()]);
-      });
     });
 
     util.async.forEachSeries(urls, function(f, next) {
